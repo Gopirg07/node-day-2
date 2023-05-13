@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getAllRooms", (req, res) => {
-  res.status(200).send({ message: "Fetched SuccessFully !!!",rooms });
+  res.status(200).send({ message: "Fetched SuccessFullyy !!!",rooms });
 });
 
 // Create room with  number of seats, amenities, and price
