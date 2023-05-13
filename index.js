@@ -8,6 +8,10 @@ app.use(express.urlencoded({ extended: true }));
 let rooms = [];
 let bookings = [];
 
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "Welcome to Home Page !!!" });
+});
+
 app.get("/getAllRooms", (req, res) => {
   res.status(200).send({ message: "Fetched SuccessFully !!!",rooms });
 });
