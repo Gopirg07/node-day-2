@@ -20,6 +20,7 @@ app.get("/getAllRooms", (req, res) => {
 app.post("/createRoom", (req, res) => {
   const room = {
     id: rooms.length + 1,
+    name:req.body.name,
     seats: req.body.seats,
     amenities: req.body.amenities,
     price: req.body.price,
