@@ -62,6 +62,67 @@ app.post("/bookings", (req, res) => {
   }
 });
 
+// List all rooms with booked data with room name, booked status, customer name, date, start time, and end time
+app.get("/rooms", (req, res) => {
+  const data = [];
+  for (const room of rooms) {
+    const roomData = {
+      roomName: `Room ${room.id}`,
+      bookedStatus: "available",
+      customerName: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+    };
+    for (const booking of bookings) {
+      if (booking.roomId === room.id) {
+        roomData.bookedStatus = booking.status;
+        roomData.customerName = booking.customerName;
+        roomData.date = booking.date;
+        roomData.startTime = booking.startTime;
+        roomData.endTime = booking.endTime;
+      }
+    }
+    data.push(roomData);
+  }
+  res.send(data);
+});
+
+// List all customers with booked data with customer name, room name, date, start time, and end time
+app.get("/customers", (req, res) => {
+  const data = [];
+  for (const booking of bookings) {
+    const customerData = {
+      customerName: booking.customerName,
+      roomName: `Room ${booking.roomId}`,
+      date: booking.date,
+      startTime: booking.startTime,
+      endTime: booking.endTime,
+    };
+    data.push(customerData);
+  }
+  res.send(data);
+});
+
+// List how many times a customer has booked the room with below details = Customer name, room name, date, start time, end time, booking ID, booking date, and booking status
+app.get("/bookings/:customerName", (req, res) => {
+  const customerName = req.params.customerName;
+  const data = bookings
+    .filter((booking) => booking.customerName === customerName)
+    .map((booking) => ({
+      customerName: booking.customerName,
+      roomName: `Room ${booking.roomId}`,
+      date: booking.date,
+      startTime: booking.startTime,
+      endTime: booking.endTime,
+      bookingId: booking.id,
+      bookingDate: booking.date,
+      bookingStatus: booking.status,
+    }));
+  console.log(bookings);
+  res.send(data);
+});
+
  
 
 // Start the server
